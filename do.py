@@ -4,9 +4,6 @@ import sys
 import argparse
 from subprocess import check_call, check_output
 
-application = 'autonomouse'
-jslibs_dir = os.path.join(application, "static")
-
 
 def main():
     parser = argparse.ArgumentParser()
