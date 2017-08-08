@@ -10,15 +10,22 @@ def main():
     parser.add_argument("command")
     parser.add_argument('extra', nargs='*')
     args = parser.parse_args()
-    args_dict = {key: value for key, value in
-                 [arg.split('=') for arg in args.extra]}
+
+    args_list = []
+    args_dict = {}
+    for arg in args.extra:
+        if '=' in arg:
+            key, value = arg.split('=')
+            args_dict[key] = value
+        else:
+            args_list.append(arg)
     private_methods = TaskBase().getAvailableMethods()
     tasks = Tasks()
     public_methods = tasks.getAvailableMethods()
     available_methods = [
         method for method in public_methods if method not in private_methods]
     try:
-        return getattr(tasks, args.command)(**args_dict)
+        return getattr(tasks, args.command)(*args_list, **args_dict)
     except AttributeError:
         print("There is no '" + args.command + "' command.")
         print("Available commands: \n * " + "\n * ".join(available_methods))
