@@ -29,6 +29,7 @@ def main():
     except AttributeError:
         print("There is no '" + args.command + "' command.")
         print("Available commands: \n * " + "\n * ".join(available_methods))
+        sys.exit()
     method(*args_list, **args_dict)
 
 
